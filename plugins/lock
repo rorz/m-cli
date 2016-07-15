@@ -10,7 +10,11 @@ __EOF__
 }
 
 lock(){
-    /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+    if [[ ($(sw_vers -productVersion | awk -F '.' '{print $1}') == "10") && ($(sw_vers -productVersion | awk -F '.' '{print $2}') -gt "8") ]]; then
+        pmset displaysleepnow
+    else
+        /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+    fi
 }
 
 case $1 in
